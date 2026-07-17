@@ -1,24 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('taxi_interest')
 export class TaxiInterest {
 
   @PrimaryGeneratedColumn()
-  id: number | undefined;
+  id!: number;
 
   @Column({ name: 'driver_name', length: 100 })
-  driverName: string | undefined;
+  driverName!: string;
 
   @Column({ name: 'driver_phone', length: 30 })
-  driverPhone: string | undefined;
+  driverPhone!: string;
 
   @Column({ length: 50 })
-  island: string | undefined;
+  island!: string;
 
   @Column({ type: 'json', nullable: true })
-  features: string[] | undefined;
+  features!: any;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date | undefined;
+  createdAt!: Date;
 
 }

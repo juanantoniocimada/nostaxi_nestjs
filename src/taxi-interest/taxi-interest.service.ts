@@ -12,9 +12,14 @@ export class TaxiInterestService {
   ) {}
 
 
-  async create(data: Partial<TaxiInterest>): Promise<TaxiInterest> {
+  async create(data: any): Promise<TaxiInterest> {
 
-    const taxiInterest = this.taxiInterestRepository.create(data);
+    const taxiInterest = this.taxiInterestRepository.create({
+      driverName: data.driver_name,
+      driverPhone: data.driver_phone,
+      island: data.island,
+      features: data.features
+    });
 
     return await this.taxiInterestRepository.save(taxiInterest);
   }

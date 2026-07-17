@@ -4,10 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { TaxiInterest } from './taxi-interest/entities/taxi-interest.entity';
+import { TaxiInterestModule } from './taxi-interest/taxi-interest.module';
 
 @Module({
   imports: [
     VehiclesModule,
+    TaxiInterestModule,
     ConfigModule.forRoot({
       isGlobal: true, 
     }),

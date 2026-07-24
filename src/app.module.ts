@@ -4,15 +4,16 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { VehiclesModule } from './vehicles/vehicles.module';
-import { TaxiInterest } from './taxi-interest/entities/taxi-interest.entity';
 import { TaxiInterestModule } from './taxi-interest/taxi-interest.module';
 import { TaxiGeoModule } from './taxi-geo/taxi-geo.module';
+import { TripsModule } from './trips/trips.module';
 
 @Module({
   imports: [
     VehiclesModule,
     TaxiInterestModule,
     TaxiGeoModule,
+    TripsModule,
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
@@ -26,6 +27,7 @@ import { TaxiGeoModule } from './taxi-geo/taxi-geo.module';
       autoLoadEntities: true,
       synchronize: false,
     }),
+    TripsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

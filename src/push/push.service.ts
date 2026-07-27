@@ -23,6 +23,9 @@ export class PushService {
     }
 
     async sendPush(deviceToken: string, title: string, body: string) {
+
+        this.logger.log(`📩 Enviando push a ${deviceToken} con título "${title}" y mensaje "${body}"`);
+
         try {
             const messaging = getMessaging();
 
@@ -36,6 +39,9 @@ export class PushService {
             this.logger.log(`✅ Push enviado: ${response}`);
             return { success: true, messageId: response };
         } catch (error: any) {
+
+
+            
             this.logger.error(`❌ Error enviando push: ${error.message}`);
             return { success: false, error: error.message };
         }

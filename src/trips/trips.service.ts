@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Trip } from './entities/trip.entity';
@@ -13,10 +13,7 @@ export class TripsService {
     private readonly pushService: PushService
   ) { }
 
-
   async create(data: any) {
-
-
 
     const trip = this.tripRepository.create({
       driverName: data.driverName,
@@ -26,11 +23,13 @@ export class TripsService {
     });
 
     try {
+      /*
       await this.pushService.sendPush(
         data.deviceToken, // El token debe venir en data
         '¡Nuevo viaje creado!',
         `Viaje con ${data.driverName} - Placa: ${data.plate}`
       );
+      */
     } catch (error: any) {
       // El error no detiene la creación del viaje
       console.error('Error enviando push:', error.message);
@@ -38,4 +37,20 @@ export class TripsService {
 
     return this.tripRepository.save(trip);
   }
+
+  async getStatus(id: number) {
+
+    const trip = await this.tripRepository.findOne({
+      where: { id }
+    });
+
+    if (!trip) {
+      throw new NotFoundException('Viaje no encontrado');
+    }
+
+    return {
+      confirmed: trip.confirmed
+    };
+  }
+
 }

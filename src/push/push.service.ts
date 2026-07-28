@@ -30,10 +30,10 @@ export class PushService {
             const messaging = getMessaging();
 
             const message = {
-                id: id?.toString() || undefined,
                 token: deviceToken,
                 notification: { title, body },
                 android: { priority: 'high' as const },
+                data: id !== undefined ? { id: id.toString() } : undefined,
             };
 
             const response = await messaging.send(message);

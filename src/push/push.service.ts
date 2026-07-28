@@ -22,7 +22,7 @@ export class PushService {
         }
     }
 
-    async sendPush(deviceToken: string, title: string, body: string, data?: Record<string, string>) {
+    async sendPush(deviceToken: string, title: string, body: string, id?: number) {
 
         this.logger.log(`📩 Enviando push a ${deviceToken} con título "${title}" y mensaje "${body}"`);
 
@@ -30,10 +30,10 @@ export class PushService {
             const messaging = getMessaging();
 
             const message = {
+                id: id?.toString() || undefined,
                 token: deviceToken,
                 notification: { title, body },
                 android: { priority: 'high' as const },
-                data,
             };
 
             const response = await messaging.send(message);

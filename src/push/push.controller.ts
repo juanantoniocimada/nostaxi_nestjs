@@ -6,9 +6,9 @@ export class PushController {
   constructor(private readonly pushService: PushService) {}  // Inyecta el servicio
 
   @Post('test')  // Endpoint: POST /push/test
-  async testPush(@Body() body: { token: string; title?: string; message?: string }) {
+  async testPush(@Body() body: { token: string; title?: string; message?: string, id?: number }) {
     const title = body.title || 'Test Push';
     const message = body.message || 'Hola, esta es una prueba';
-    return this.pushService.sendPush(body.token, title, message);
+    return this.pushService.sendPush(body.token, title, message, body.id);
   }
 }

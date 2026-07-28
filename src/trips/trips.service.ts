@@ -53,4 +53,20 @@ export class TripsService {
     };
   }
 
+async accept(id: number) {
+  await this.tripRepository.update(id, {
+    confirmed: true,
+  });
+
+  return this.tripRepository.findOneBy({ id });
+}
+
+async reject(id: number) {
+  await this.tripRepository.update(id, {
+    confirmed: false,
+  });
+
+  return this.tripRepository.findOneBy({ id });
+}
+
 }

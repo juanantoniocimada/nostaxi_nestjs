@@ -28,4 +28,22 @@ export class TripsController {
   reject(@Param('id') id: string) {
     return this.tripsService.reject(Number(id));
   }
+
+  @Get(':id/position')
+  getTaxiPosition(@Param('id') id: string) {
+    return this.tripsService.getTaxiPosition(Number(id));
+  }
+
+  @Patch(':id/position')
+  updatePosition(
+    @Param('id') id: number,
+    @Body() body: { latitude: number; longitude: number },
+  ) {
+    return this.tripsService.updateTaxiPosition(
+      +id,
+      body.latitude,
+      body.longitude,
+    );
+  }
+  
 }

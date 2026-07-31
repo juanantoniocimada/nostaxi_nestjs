@@ -20,18 +20,18 @@ export class Trip {
     confirmed!: boolean;
 
     @Column('decimal', {
-    name: 'taxi_latitude',
-    precision: 10,
-    scale: 7,
-    nullable: true,
+        name: 'taxi_latitude',
+        precision: 10,
+        scale: 7,
+        nullable: true,
     })
     taxiLatitude!: number;
 
     @Column('decimal', {
-    name: 'taxi_longitude',
-    precision: 10,
-    scale: 7,
-    nullable: true,
+        name: 'taxi_longitude',
+        precision: 10,
+        scale: 7,
+        nullable: true,
     })
     taxiLongitude!: number;
 

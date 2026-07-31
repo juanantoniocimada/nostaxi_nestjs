@@ -86,11 +86,7 @@ export class TripsService {
 
   async getTaxiPosition(id: number) {
     const trip = await this.tripRepository.findOne({
-      where: { id },
-      select: {
-        taxiLatitude: true,
-        taxiLongitude: true,
-      },
+      where: { id }
     });
 
     if (!trip) {
@@ -102,5 +98,7 @@ export class TripsService {
       longitude: trip.taxiLongitude,
     };
   }
+
+  
 
 }

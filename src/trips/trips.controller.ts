@@ -34,6 +34,7 @@ export class TripsController {
     return this.tripsService.getTaxiPosition(Number(id));
   }
 
+  
   @Patch(':id/position')
   updatePosition(
     @Param('id') id: number,

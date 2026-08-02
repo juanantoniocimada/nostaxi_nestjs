@@ -18,7 +18,12 @@ export class TaxiInterest {
   @Column({ length: 255 })
   password!: string;
 
-  @Column({ name: 'push_token', length: 255, nullable: true })
+  @Column({
+    name: 'push_token',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+  })
   pushToken!: string | null;
 
   @Column({ type: 'json', nullable: true })

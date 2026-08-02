@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { TaxiInterestModule } from './taxi-interest/taxi-interest.module';
-import { TaxiGeoModule } from './taxi-geo/taxi-geo.module';
 import { TripsModule } from './trips/trips.module';
 import { PushModule } from './push/push.module';
 
@@ -13,7 +12,6 @@ import { PushModule } from './push/push.module';
   imports: [
     VehiclesModule,
     TaxiInterestModule,
-    TaxiGeoModule,
     PushModule,
     TripsModule,
     ConfigModule.forRoot({

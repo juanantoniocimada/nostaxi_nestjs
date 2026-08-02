@@ -9,7 +9,7 @@ export class TaxiInterestService {
   constructor(
     @InjectRepository(TaxiInterest)
     private readonly taxiInterestRepository: Repository<TaxiInterest>,
-  ) {}
+  ) { }
 
 
   async create(data: any): Promise<TaxiInterest> {
@@ -22,6 +22,14 @@ export class TaxiInterestService {
     });
 
     return await this.taxiInterestRepository.save(taxiInterest);
+  }
+
+  async findByPhone(phone: string): Promise<TaxiInterest | null> {
+    return await this.taxiInterestRepository.findOne({
+      where: {
+        driverPhone: phone,
+      },
+    });
   }
 
 }

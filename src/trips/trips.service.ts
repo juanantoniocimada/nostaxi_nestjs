@@ -19,7 +19,13 @@ export class TripsService {
       driverName: data.driverName,
       plate: data.plate,
       pickupTime: data.pickupTime,
-      confirmed: data.confirmed ?? false
+      confirmed: data.confirmed ?? false,
+      userOriginPosName: data.userOriginPosName ?? null,
+      userOriginPosLat: data.userOriginPosLat ?? null,
+      userOriginPosLng: data.userOriginPosLng ?? null,
+      userDestinationPosName: data.userDestinationPosName ?? null,
+      userDestinationPosLat: data.userDestinationPosLat ?? null,
+      userDestinationPosLng: data.userDestinationPosLng ?? null,
     });
 
     try {

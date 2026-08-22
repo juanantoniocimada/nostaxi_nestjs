@@ -29,6 +29,29 @@ export class TaxiInterest {
   @Column({ type: 'json', nullable: true })
   features!: any;
 
+ @Column({
+    type: 'varchar',
+    length: 500,
+    nullable: true,
+  })
+  photo!: string | null;
+
+  @Column({
+    name: 'vehicle_model',
+    type: 'varchar',
+    length: 100,
+    nullable: true,
+  })
+  vehicleModel!: string | null;
+
+  @Column({
+    name: 'vehicle_plate',
+    type: 'varchar',
+    length: 30,
+    nullable: true,
+  })
+  vehiclePlate!: string | null;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 

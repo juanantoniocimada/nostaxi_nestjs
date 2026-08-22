@@ -40,6 +40,18 @@ export class TripsService {
     return this.tripRepository.save(trip);
   }
 
+  async get (id: number) {
+    const trip = await this.tripRepository.findOne({
+      where: { id }
+    });
+
+    if (!trip) {
+      throw new NotFoundException('Viaje no encontrado');
+    }
+
+    return trip;
+  }
+
   async getStatus(id: number) {
 
     const trip = await this.tripRepository.findOne({
@@ -98,6 +110,7 @@ export class TripsService {
       longitude: trip.taxiLongitude,
     };
   }
+  
 
   
 

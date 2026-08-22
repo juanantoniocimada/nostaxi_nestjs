@@ -35,4 +35,23 @@ export class Trip {
     })
     taxiLongitude!: number;
 
+    // nuevos campos 
+    @Column({ name: 'user_origin_pos_name', type: 'varchar', length: 255, nullable: true })
+    userOriginPosName!: string | null;
+
+    @Column({ name: 'user_origin_pos_lat', type: 'decimal', precision: 10, scale: 7, nullable: true })
+    userOriginPosLat!: number | null;
+
+    @Column({ name: 'user_origin_pos_lng', type: 'decimal', precision: 10, scale: 7, nullable: true })
+    userOriginPosLng!: number | null;
+
+    @Column({ name: 'user_destination_pos_name', type: 'varchar', length: 255, nullable: true })
+    userDestinationPosName!: string | null;
+
+    @Column({ name: 'user_destination_pos_lat', type: 'decimal', precision: 10, scale: 7, nullable: true })
+    userDestinationPosLat!: number | null;
+
+    @Column({ name: 'user_destination_pos_lng', type: 'decimal', precision: 10, scale: 7, nullable: true })
+    userDestinationPosLng!: number | null;
+
 }

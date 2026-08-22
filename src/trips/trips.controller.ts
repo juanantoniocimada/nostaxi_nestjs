@@ -14,6 +14,11 @@ export class TripsController {
     return this.tripsService.create(data);
   }
 
+  @Get(':id')
+  get(@Param('id') id: string) {
+    return this.tripsService.get(Number(id));
+  }
+
   @Get('status/:id')
   getStatus(@Param('id') id: string) {
     return this.tripsService.getStatus(Number(id));

@@ -26,9 +26,6 @@ export class TaxiInterest {
   })
   pushToken!: string | null;
 
-  @Column({ type: 'json', nullable: true })
-  features!: any;
-
  @Column({
     type: 'varchar',
     length: 500,

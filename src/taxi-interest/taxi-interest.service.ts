@@ -15,10 +15,14 @@ export class TaxiInterestService {
   async create(data: any): Promise<TaxiInterest> {
 
     const taxiInterest = this.taxiInterestRepository.create({
-      driverName: data.driver_name,
-      driverPhone: data.driver_phone,
+      driverName: data.driverName ?? null,
+      driverPhone: data.driverPhone ?? null,
       island: data.island,
-      features: data.features
+      password: data.password,
+      pushToken: data.pushToken ?? null,
+      photo: data.photo ?? null,
+      vehicleModel: data.vehicleModel ?? null,
+      vehiclePlate: data.vehiclePlate ?? null,
     });
 
     return await this.taxiInterestRepository.save(taxiInterest);

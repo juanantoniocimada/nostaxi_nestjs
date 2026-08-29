@@ -20,7 +20,7 @@ export class UsersService {
             return { ok: false, message: 'Usuario no encontrado' };
         }
 
-        if (user.password !== password) {
+        if (!user.password || user.password !== password) {
             return { ok: false, message: 'Contraseña incorrecta' };
         }
 
@@ -29,14 +29,25 @@ export class UsersService {
             user: {
                 id: user.id,
                 phoneNumber: user.phoneNumber,
+                name: user.name,
             },
         };
     }
 
-    async register(phoneNumber: string, name: string) {
+    async register(phoneNumber: string, name: string, password?: string) {
+        const normalizedPhone = phoneNumber?.trim();
+        const normalizedName = name?.trim();
+
+        if (!normalizedPhone) {
+            throw new ConflictException('Phone number is required');
+        }
+
+        if (!normalizedName) {
+            throw new ConflictException('Name is required');
+        }
 
         const existingUser = await this.userRepository.findOne({
-            where: { phoneNumber },
+            where: { phoneNumber: normalizedPhone },
         });
 
         if (existingUser) {
@@ -44,8 +55,9 @@ export class UsersService {
         }
 
         const user = this.userRepository.create({
-            phoneNumber,
-            name,
+            phoneNumber: normalizedPhone,
+            name: normalizedName,
+            password: password ?? null,
         });
 
         return this.userRepository.save(user);

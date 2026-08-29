@@ -14,10 +14,11 @@ export class UsersController {
     }
 
     @Post('register')
-    register(@Body() body: { phoneNumber: string; name: string }) {
+    register(@Body() body: { phoneNumber: string; name: string; password?: string }) {
         return this.usersService.register(
             body.phoneNumber,
             body.name,
+            body.password,
         );
     }
 

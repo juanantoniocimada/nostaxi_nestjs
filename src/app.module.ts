@@ -7,6 +7,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
 import { TaxiInterestModule } from './taxi-interest/taxi-interest.module';
 import { TripsModule } from './trips/trips.module';
 import { PushModule } from './push/push.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PushModule } from './push/push.module';
       synchronize: false,
     }),
     TripsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

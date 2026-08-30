@@ -46,6 +46,12 @@ export class TripsService {
     return this.tripRepository.save(trip);
   }
 
+  async getTrips(driverName?: string) {
+    return this.tripRepository.find({
+      where: driverName ? { driverName } : {},
+    });
+  }
+
   async get (id: number) {
     const trip = await this.tripRepository.findOne({
       where: { id }

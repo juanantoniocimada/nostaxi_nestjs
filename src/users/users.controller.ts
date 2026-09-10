@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -19,6 +19,22 @@ export class UsersController {
             body.phoneNumber,
             body.name,
             body.password,
+        );
+    }
+
+    @Patch(':id')
+    updateField(
+        @Param('id') id: number,
+        @Body()
+        body: {
+            field: 'name' | 'phoneNumber' | 'password';
+            value: string;
+        }
+    ) {
+        return this.usersService.updateField(
+            id,
+            body.field,
+            body.value
         );
     }
 

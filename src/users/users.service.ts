@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -59,6 +59,43 @@ export class UsersService {
             name: normalizedName,
             password: password ?? null,
         });
+
+        return this.userRepository.save(user);
+    }
+
+    async updateField(
+        id: number,
+        field: string,
+        value: any
+    ) {
+
+        const user = await this.userRepository.findOne({
+            where: { id },
+        });
+
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+
+        const allowedFields = [
+            'name',
+            'phoneNumber',
+            'password',
+        ];
+
+        if (!allowedFields.includes(field)) {
+            throw new ConflictException(
+                `Field '${field}' cannot be updated`
+            );
+        }
+
+        if (value === undefined || value === null || value === '') {
+            throw new ConflictException(
+                'Value is required'
+            );
+        }
+
+        user[field] = value;
 
         return this.userRepository.save(user);
     }

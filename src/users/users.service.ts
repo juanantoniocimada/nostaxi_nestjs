@@ -30,6 +30,7 @@ export class UsersService {
                 id: user.id,
                 phoneNumber: user.phoneNumber,
                 name: user.name,
+                img: user.img
             },
         };
     }

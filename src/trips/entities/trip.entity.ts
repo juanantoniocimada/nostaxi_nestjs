@@ -1,5 +1,7 @@
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { TaxiInterest } from 'src/taxi-interest/entities/taxi-interest.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity('trips')
 export class Trip {
@@ -54,4 +56,11 @@ export class Trip {
     @Column({ name: 'user_destination_pos_lng', type: 'decimal', precision: 10, scale: 7, nullable: true })
     userDestinationPosLng!: number | null;
 
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: 'user_id' })
+    user!: User | null;
+
+    @ManyToOne(() => TaxiInterest, { nullable: true })
+    @JoinColumn({ name: 'taxi_interest_id' })
+    taxiInterest!: TaxiInterest | null;
 }

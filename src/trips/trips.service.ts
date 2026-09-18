@@ -46,13 +46,26 @@ export class TripsService {
     return this.tripRepository.save(trip);
   }
 
-  async getTrips(driverName?: string) {
+  /*
+    getTrips('Pedro')       → busca por driverName
+    getTrips(undefined, 5)  → busca por id
+    getTrips()              → devuelve todos
+  */
+  async getTrips(driverName?: string, id?: number) {
     return this.tripRepository.find({
-      where: driverName ? { driverName } : {},
+      where: id !== undefined
+        ? { user: { id } }
+        : driverName
+          ? { driverName }
+          : {},
+      relations: ['user', 'taxiInterest'],
+      order: {
+        pickupTime: 'ASC',
+      },
     });
   }
 
-  async get (id: number) {
+  async get(id: number) {
     const trip = await this.tripRepository.findOne({
       where: { id }
     });
@@ -122,8 +135,8 @@ export class TripsService {
       longitude: trip.taxiLongitude,
     };
   }
-  
 
-  
+
+
 
 }

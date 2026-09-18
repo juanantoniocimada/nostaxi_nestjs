@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { TripsService } from './trips.service';
 
 @Controller('trips')
@@ -14,9 +14,14 @@ export class TripsController {
     return this.tripsService.create(data);
   }
 
+  // GET /trips?driverName=Pedro
+  // GET /trips?id=123
   @Get()
-  getTrips(@Param('driverName') driverName?: string) {
-    return this.tripsService.getTrips(driverName);
+  getTrips(
+    @Query('driverName') driverName?: string,
+    @Query('id') id?: number,
+  ) {
+    return this.tripsService.getTrips(driverName, id === undefined ? undefined : Number(id));
   }
 
   @Get(':id')

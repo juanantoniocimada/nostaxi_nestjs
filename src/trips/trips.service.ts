@@ -15,7 +15,21 @@ export class TripsService {
 
   async create(data: any) {
 
+    /*
+        @ManyToOne(() => User, { nullable: true })
+        @JoinColumn({ name: 'user_id' })
+        user!: User | null;
+    
+        @ManyToOne(() => TaxiInterest, { nullable: true })
+        @JoinColumn({ name: 'taxi_interest_id' })
+        taxiInterest!: TaxiInterest | null;
+        */
+
     const trip = this.tripRepository.create({
+
+      user: data.user ?? null,
+      taxiInterest: data.taxiInterest ?? null,
+
       driverName: data.driverName,
       plate: data.plate,
       pickupTime: data.pickupTime,
@@ -46,19 +60,23 @@ export class TripsService {
     return this.tripRepository.save(trip);
   }
 
-  /*
-    getTrips('Pedro')       → busca por driverName
-    getTrips(undefined, 5)  → busca por id
-    getTrips()              → devuelve todos
-  */
-  async getTrips(driverName?: string, id?: number) {
+  async getTrips(
+    driverName?: string,
+    userId?: number,
+    taxiInterestId?: number,
+  ) {
     return this.tripRepository.find({
-      where: id !== undefined
-        ? { user: { id } }
-        : driverName
-          ? { driverName }
-          : {},
+      where:
+        taxiInterestId !== undefined
+          ? { taxiInterest: { id: taxiInterestId } }
+          : userId !== undefined
+            ? { user: { id: userId } }
+            : driverName
+              ? { driverName }
+              : {},
+
       relations: ['user', 'taxiInterest'],
+
       order: {
         pickupTime: 'ASC',
       },
@@ -67,7 +85,8 @@ export class TripsService {
 
   async get(id: number) {
     const trip = await this.tripRepository.findOne({
-      where: { id }
+      where: { id },
+      relations: ['user', 'taxiInterest'],
     });
 
     if (!trip) {
@@ -92,12 +111,17 @@ export class TripsService {
     };
   }
 
-  async accept(id: number) {
+  async accept(id: number, taxiInterestId: number) {
+
     await this.tripRepository.update(id, {
       confirmed: true,
+      taxiInterest: { id: taxiInterestId },
     });
 
-    return this.tripRepository.findOneBy({ id });
+    return this.tripRepository.findOne({
+      where: { id },
+      relations: ['user', 'taxiInterest'],
+    });
   }
 
   async reject(id: number) {

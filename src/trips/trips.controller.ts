@@ -13,15 +13,21 @@ export class TripsController {
   create(@Body() data: any) {
     return this.tripsService.create(data);
   }
-
   // GET /trips?driverName=Pedro
   // GET /trips?id=123
+  // GET /trips?taxiInterestId=456
+
   @Get()
   getTrips(
     @Query('driverName') driverName?: string,
-    @Query('id') id?: number,
+    @Query('id') id?: string,
+    @Query('taxiInterestId') taxiInterestId?: string,
   ) {
-    return this.tripsService.getTrips(driverName, id === undefined ? undefined : Number(id));
+    return this.tripsService.getTrips(
+      driverName,
+      id !== undefined ? Number(id) : undefined,
+      taxiInterestId !== undefined ? Number(taxiInterestId) : undefined,
+    );
   }
 
   @Get(':id')
@@ -35,8 +41,14 @@ export class TripsController {
   }
 
   @Patch(':id/accept')
-  accept(@Param('id') id: string) {
-    return this.tripsService.accept(Number(id));
+  accept(
+    @Param('id') id: string,
+    @Body() data: { taxiInterestId: number }
+  ) {
+    return this.tripsService.accept(
+      Number(id),
+      data.taxiInterestId
+    );
   }
 
   @Patch(':id/reject')
@@ -49,7 +61,7 @@ export class TripsController {
     return this.tripsService.getTaxiPosition(Number(id));
   }
 
-  
+
   @Patch(':id/position')
   updatePosition(
     @Param('id') id: number,
@@ -61,5 +73,5 @@ export class TripsController {
       body.longitude,
     );
   }
-  
+
 }
